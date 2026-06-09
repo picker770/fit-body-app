@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitbody-app {% block title %}{% endblock %}</title>
+    <!--Bootstrap CSS will go here later-->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <!--Navigation will go here-->
+        <h1>Fitness Community platform</h1>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!--Bootstrap JS will go here-->
+    {% block extra_js %}{% endblock %}
+    
+</body>
+</html>
