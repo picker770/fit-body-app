@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title  %} - Contact Us {% endblock  %}
+
+{% block content  %}
+<div class="row">
+    <div class="col-lg-6 mx-auto">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Get in Touch</h1>
+            <p class="lead text-muted">Have questions? We'd love to hear from you</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-4">
+            <form method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="id_name" class="form-label fw-medium">Name</label>
+        <input type="text" name="name" id="id_name" class="form-control" placeholder="Your full name" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="id_email" class="form-label fw-medium">Email</label>
+        <input type="email" name="email" id="id_email" class="form-control" placeholder="your@email.com" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="id_subject" class="form-label fw-medium">Subject</label>
+        <input type="text" name="subject" id="id_subject" class="form-control" placeholder="Subject" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="id_message" class="form-label fw-medium">Message</label>
+        <textarea name="message" id="id_message" class="form-control" rows="5" placeholder="Tell us how we can help..." required></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary w-100">
+        <i class="fas fa-paper-plane me-2"></i>Send Message
+    </button>
+</form>
+        </div>
+    </div>
+
+     <div class="row mt-4 text-center">
+            <div class="col-md-4">
+                <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                <p class="small text-muted mb-0">support@fitbody-app.com</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-phone fa-2x text-primary mb-2"></i>
+                <p class="small text-muted mb-0">+1 (555) 123-4567</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-clock fa-2x text-primary mb-2"></i>
+                <p class="small text-muted mb-0">Mon-Fri 9AM - 6PM</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
