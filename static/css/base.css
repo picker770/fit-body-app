@@ -283,3 +283,23 @@ a:hover {
 .fade-in {
     animation: fadeIn 0.3s ease;
 }
+
+
+.about-card {
+    min-height: 250px;
+}
+
+.about-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.about-card .card-body p {
+    flex-grow: 0;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
