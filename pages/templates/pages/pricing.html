@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %} - Pricing{% endblock  %}
+
+{% block content  %}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">
+        Simple, Transparent Pricing
+    </h1>
+    <p class="lead text-muted">
+        Choose the plan that fits your fitness journey
+    </p>
+</div>
+
+<div class="row g-4 justify-content-center">
+
+    <!-- Free Plan -->
+     <div class="col-md-6 col-lg-5">
+        <div class="card h-100 text-center border-2">
+            <div class="card-body p-4">
+                <h3 class="card-title">Free</h3>
+                <p class="text-muted">
+                    Perfect for getting started
+                </p>
+                <h2 class="display-4 fw-bold text-primary">$0</h2>
+                <p class="text-muted mb-4">Forever Free</p>
+
+                <hr>
+
+                <ul class="list-unstyled text-start mt-4">
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>Basic exercise library
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>3 sample nutrition plans
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>Community access
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>Progress tracking basics
+                    </li>
+                    <li class="mb-3 text-muted">
+                        <i class="fas fa-times-circle me-2"></i>Premium exercise plans
+                    </li>
+                    <li class="mb-3 text-muted">
+                        <i class="fas fa-times-circle text-success me-2"></i>Personalized nutrition
+                    </li>
+                </ul>
+
+                <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary w-100 mt-3">Get Started</a>
+            </div>
+        </div>
+     </div>
+
+    <!-- Premium Plan (Highlighted) -->
+    <div class="col-md-6 col-lg-5">
+            <div class="card h-100 text-center border-primary shadow-lg">
+             <div class="card-header bg-primary text-white py-2">
+            <span class="fw-bold">⭐ Most Popular</span>
+            </div>
+            <div class="card-body p-4 mt-3">
+                <h3 class="card-title">Premium</h3>
+                <p class="text-muted">Unlock your full potential</p>
+                <h2 class="display-4 fw-bold text-primary">$19.99</h2>
+                <p class="text-muted mb-4">per month • cancel anytime</p>
+                
+                <hr>
+                
+                <ul class="list-unstyled text-start mt-4">
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>All Free features</strong>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Unlimited exercise plans
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Personalized nutrition plans
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Video workout guides
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Priority support
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Monthly live Q&A sessions
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Exclusive community challenges
+                    </li>
+                </ul>
+                
+                <a href="{% url 'accounts:register' %}" class="btn btn-primary w-100 mt-3">Start Premium Free Trial</a>
+                <small class="text-muted d-block mt-2">14-day money-back guarantee</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="row mt-5 pt-4">
+    <div class="col-12 text-center mb-4">
+        <h3>Frequently Asked Questions</h3>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="mb-4">
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> Can I switch plans anytime?</h5>
+            <p class="text-muted">Yes, you can upgrade or cancel your subscription at any time from your dashboard.</p>
+        </div>
+        <div class="mb-4">
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> Is there a free trial?</h5>
+            <p class="text-muted">Premium plans come with a 14-day money-back guarantee. Cancel within 14 days for a full refund.</p>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="mb-4">
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> What payment methods are accepted?</h5>
+            <p class="text-muted">We accept all major credit cards via Stripe's secure payment system.</p>
+        </div>
+        <div class="mb-4">
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> Can I cancel anytime?</h5>
+            <p class="text-muted">Absolutely. No long-term contracts. Cancel directly from your account settings.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Annual Plan Note -->
+<div class="text-center mt-4">
+    <p class="text-muted">
+        <i class="fas fa-tag me-1"></i> 
+        <strong>Save 20%</strong> with annual billing — only $15.99/month billed yearly
+    </p>
+</div>
+
+{% endblock  %}
