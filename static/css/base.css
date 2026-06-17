@@ -303,3 +303,39 @@ a:hover {
     margin-bottom: 0;
     line-height: 1.5;
 }
+
+/* Hero Section */
+
+.hero-section {
+    background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+    border-radius: 0 0 2rem 2rem;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.hero-section .badge {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Stats Section */
+
+.bg-light {
+    background-color: #F8FAFC !important;
+}
+
+.bg-light .display-4 {
+    font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .hero-section .display-3 {
+        font-size: 2.2rem;
+    }
+    
+    .bg-light .display-4 {
+        font-size: 1.8rem;
+    }
+}

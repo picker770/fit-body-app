@@ -1,12 +1,119 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %} - Home{% endblock  %}
 
 {% block content %}
-<div class="text-center">
-    <h1>Welcome to Fitbody-App</h1>
-    <p class="lead">Your fitness journey starts here</p>
-    
-    <div class="mt-4">
-        <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">Register</a>
+<!-- Hero Section -->
+ <section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-3">
+                    Transform Your <span class="text-primary">Fitness</span> Journey
+                </h1>
+                <p class="lead text-muted mb-4">
+                    Expert-crafted exercise plans, personlized nutrition guidance, and a supportive community - all in one platform.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                     {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard:home' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Get Started Free
+                        </a>
+                        <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                    {% endif %}  
+                </div>
+                <div class="mt-4">
+                    <span class="badge bg-primary me-2">Exercise Plans</span>
+                    <span class="badge bg-success me-2">Nutrition Guides</span>
+                    <span class="badge bg-warning text-dark me-2">Premium Content</span>
+                    <span class="badge bg-info text-dark">Community</span>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                <img src="{% static 'images/hero-image.png' %}" alt="Fitness Hero" class="img-fluid rounded-4 shadow-lg" style="max-height: 400px; width: 100%; object-fit: cover;">
+            </div>
+        </div>
     </div>
-</div>
+ </section>
+
+ <!-- Stats Section -->
+<section class="py-5 bg-light rounded-4">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-6 col-md-3">
+                <h2 class="display-4 fw-bold text-primary">
+                    50+
+                </h2>
+                <p class="text-muted">Exercise Plans</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="display-4 fw-bold text-primary">
+                    30+
+                </h2>
+                <p class="text-muted">Nutrition Plans</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="display-4 fw-bold text-primary">
+                    1000+
+                </h2>
+                <p class="text-muted">Active Members</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="display-4 fw-bold text-primary">
+                    4.8⭐
+                </h2>
+                <p class="text-muted">Average Rating</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Preview -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Why Choose Fitbody-App?</h2>
+            <p class="text-muted">Everything you need to reach your fitness goals</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body d-flex flex-column">
+                        <i class="fas fa-dumbbell fa-3x text-primary mb-3"></i>
+                        <h5>Exercise Plans</h5>
+                        <p class="text-muted flex-grow-1">Workouts designed by fitness professionals for all levels</p>
+                        <a href="{% url 'pages:features' %}" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body d-flex flex-column">
+                        <i class="fas fa-apple-alt fa-3x text-primary mb-3"></i>
+                        <h5>Nutrition Plans</h5>
+                        <p class="text-muted flex-grow-1">Personalized meal plans aligned with your fitness goals</p>
+                        <a href="{% url 'pages:features' %}" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body d-flex flex-column">
+                        <i class="fas fa-crown fa-3x text-warning mb-3"></i>
+                        <h5>Premium Benefits</h5>
+                        <p class="text-muted flex-grow-1">Unlock exclusive content, advanced features, and priority support</p>
+                        <a href="{% url 'pages:pricing' %}" class="btn btn-outline-primary btn-sm">View Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
