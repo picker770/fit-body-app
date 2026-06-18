@@ -137,3 +137,69 @@
     </div>
 </div>
 {% endblock  %}
+
+<!-- JavaScript enhanced filtering to the product listing page , no page reload required-->
+ {% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get filter elements
+        const searchInput = document.querySelector('input[name="search"]');
+        const typeSelect = document.querySelector('select[name="type"]');
+        const minPriceInput = document.querySelector('input[name="min_price"]');
+        const maxPriceInput = document.querySelector('input[name="max_price"]');
+        const filterForm = document.querySelector('form');
+        const applyFiltersBtn = document.querySelector('button[type="submit"]');
+        const clearFiltersBtn = document.querySelector('a[href*="products"]');
+        
+        // Add live search with debounce
+        if (searchInput) {
+            let debounceTimer;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(function() {
+                    filterForm.submit();
+                }, 500);
+            });
+        }
+        
+        // Auto-submit on type change
+        if (typeSelect) {
+            typeSelect.addEventListener('change', function() {
+                filterForm.submit();
+            });
+        }
+        
+        // Auto-submit on price range change (with debounce)
+        if (minPriceInput) {
+            let priceTimer;
+            minPriceInput.addEventListener('input', function() {
+                clearTimeout(priceTimer);
+                priceTimer = setTimeout(function() {
+                    filterForm.submit();
+                }, 600);
+            });
+        }
+        
+        if (maxPriceInput) {
+            let priceTimer;
+            maxPriceInput.addEventListener('input', function() {
+                clearTimeout(priceTimer);
+                priceTimer = setTimeout(function() {
+                    filterForm.submit();
+                }, 600);
+            });
+        }
+        
+        // Show loading state on form submit
+        if (filterForm) {
+            filterForm.addEventListener('submit', function() {
+                const btn = this.querySelector('button[type="submit"]');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+                    btn.disabled = true;
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
