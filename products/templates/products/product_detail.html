@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title  %} -{{ product.name }}{% endblock  %}
+
+{% block content %}
+<div class="row">
+    <!-- Product Image -->
+    <div class="col-md-6 mb-4">
+        {% if product.image %}
+             <img src="{{ product.image.url }}" class="img-fluid rounded-4 shadow" alt="{{ product.name }}">
+        {% else %}
+            <div class="bg-light text-center py-5 rouded-4 shadow" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-dumbbell fa-6x text-muted"></i>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-md-6">
+        <span class="badge bg-primary mb-3">{{ product.get_product_type_display }}</span>
+        <h1 class="display-5 fw-bold">{{ product.name }}</h1>
+        <p class="lead text-muted">{{ product.description }}</p>
+        
+        <h3 class="text-primary mb-4">${{ product.price }}</h3>
+        
+        <!-- Product-specific details -->
+        {% if product.product_type == 'exercise' and exercise_details %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-dumbbell me-2"></i>Exercise Plan Details</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Difficulty:</strong> {{ exercise_details.get_difficulty_display }}</li>
+                        <li><strong>Duration:</strong> {{ exercise_details.duration_weeks }} weeks</li>
+                        <li><strong>Workouts per week:</strong> {{ exercise_details.workouts_per_week }}</li>
+                        {% if exercise_details.calories_burn_estimate %}
+                            <li><strong>Calories burned:</strong> ~{{ exercise_details.calories_burn_estimate }} per session</li>
+                        {% endif %}
+                        <li><strong>Equipment needed:</strong> {{ exercise_details.equipment_needed|default:"None required" }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% elif product.product_type == 'nutrition' and nutrition_details %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-apple-alt me-2"></i>Nutrition Plan Details</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Meal Type:</strong> {{ nutrition_details.get_meal_type_display }}</li>
+                        <li><strong>Calories target:</strong> {{ nutrition_details.calories_target }} kcal/day</li>
+                        <li><strong>Protein:</strong> {{ nutrition_details.protein_grams }}g/day</li>
+                        <li><strong>Carbs:</strong> {{ nutrition_details.carbs_grams }}g/day</li>
+                        <li><strong>Fats:</strong> {{ nutrition_details.fats_grams }}g/day</li>
+                        {% if nutrition_details.dietary_restrictions %}
+                            <li><strong>Dietary restrictions:</strong> {{ nutrition_details.dietary_restrictions }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        
+        <!-- Purchase/Action Button -->
+        {% if user.is_authenticated %}
+            {% if is_purchased %}
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>You already own this plan!
+                </div>
+                <a href="{% url 'dashboard:home' %}" class="btn btn-success w-100">
+                    <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                </a>
+            {% else %}
+                <!-- Temporarily disabled until payments app is built -->
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>Payment integration coming soon!
+        </div>
+        <button class="btn btn-primary w-100" disabled>
+            <i class="fas fa-lock me-2"></i>Purchase Now - ${{ product.price }}
+        </button>
+        <small class="text-muted d-block mt-2 text-center">Secure payment powered by Stripe</small>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>Please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">register</a> to purchase this plan.
+            </div>
+            <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-primary w-100">
+                <i class="fas fa-sign-in-alt me-2"></i>Login to Purchase
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock  %}
