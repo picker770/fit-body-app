@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
-from .models import Product, ExercisePlan, NutritionPlan
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import Product, ExercisePlan, NutritionPlan, ProductReview
 
 
 class ProductListView(ListView):
@@ -84,4 +86,38 @@ class ProductDetailView(DetailView):
             context['is_purchased'] = False
         
         return context
+    
+@login_required
+def add_review(request, product_id):
+    """
+    Add or update a review for a product
+    """
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment')
+        
+        if rating and comment:
+            # Check if user already reviewed this product
+            review, created = ProductReview.objects.get_or_create(
+                user=request.user,
+                product=product,
+                defaults={'rating': rating, 'comment': comment}
+            )
+            if not created:
+                # Update existing review
+                review.rating = rating
+                review.comment = comment
+                review.save()
+                messages.success(request, 'Your review has been updated!')
+            else:
+                messages.success(request, 'Thank you for your review!')
+        else:
+            messages.error(request, 'Please fill out all fields.')
+        
+        return redirect('products:detail', slug=product.slug)
+    
+    # If GET request, redirect to product list
+    return redirect('products:list')   
+
 

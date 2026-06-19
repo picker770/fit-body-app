@@ -119,3 +119,29 @@ class ProductPurchase(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.product.name} ({self.purchase_date.date()})"
+
+class ProductReview(models.Model):
+    """
+    User reviews and ratings for products
+    """
+    RATING_CHOICES = [
+        (1, '1 Star'),
+        (2, '2 Stars'),
+        (3, '3 Stars'),
+        (4, '4 Stars'),
+        (5, '5 Stars'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_reviews')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    comment = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['user', 'product'] # One review per user per product
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.name} ({self.rating}⭐)"

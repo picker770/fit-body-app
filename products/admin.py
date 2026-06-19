@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Product, ExercisePlan, NutritionPlan, ProductPurchase
+from .models import ProductReview
 
 
 class ExercisePlanInline(admin.StackedInline):
@@ -39,3 +40,12 @@ class ProductPurchaseAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'purchase_date')
     search_fields = ('user__username', 'product__name')
     readonly_fields = ('purchase_date',)
+
+@admin.register(ProductReview)
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'rating', 'created_at')
+    list_filter = ('rating', 'created_at')
+    search_fields = ('user__username', 'product__name', 'comment')
+    readonly_fields = ('created_at', 'updated_at')
+
+
