@@ -1,137 +1,127 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title  %} - Features{% endblock  %}
+{% block title %} - Features{% endblock %}
 
-{% block content  %}
+{% block content %}
+<!-- Hero Image Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <img src="{% static 'images/features-hero.png' %}" alt="Fitbody-App Features" class="img-fluid rounded-4 shadow-lg w-100" style="max-height: 300px; object-fit: cover;">
+    </div>
+</div>
+
 <div class="text-center mb-5">
     <h1 class="display-4 fw-bold">Everything You Need</h1>
-    <p class="lead text-muted">
-        All the tools to transform your fitness journey
-    </p>
+    <p class="lead text-muted">All the tools to transform your fitness journey</p>
 </div>
 
 <div class="row g-4">
-    <!-- Feature 1: Exercise Plans-->
-     <div class="col-md-6 col-lg-4">
+    <!-- Feature 1: Exercise Plans -->
+    <div class="col-md-6 col-lg-4">
         <div class="card h-100 text-center p-3">
             <div class="card-body">
-                <i class="fas fa-dumbell fa-3x text-primary mb-3"></i>
+                <i class="fas fa-dumbbell fa-3x text-primary mb-3"></i>
                 <h4>Exercise Plans</h4>
-                <p class="text-muted">
-                    Professionally designed workout programs for all fitness levels - from beginner to advanced.
-                </p>
+                <p class="text-muted">Professionally designed workout programs for all fitness levels — from beginner to advanced.</p>
                 <ul class="list-unstyled text-start small mt-3">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Home & gym workouts</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Video demonstrations</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Progress tracking</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Home & gym workouts</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Video demonstrations</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Progress tracking</li>
                 </ul>
             </div>
         </div>
-     </div>
-
-     <!-- Feature 2: Nutrition Plans -->
-      <div class="col-md-6 col-lg-4">
+    </div>
+    
+    <!-- Feature 2: Nutrition Plans -->
+    <div class="col-md-6 col-lg-4">
         <div class="card h-100 text-center p-3">
             <div class="card-body">
                 <i class="fas fa-apple-alt fa-3x text-primary mb-3"></i>
                 <h4>Nutrition Plans</h4>
-                <p class="text-muted">
-                    Personalized meal plans tailored to your goals - weight loss, muscle gain, or maintenance.
-                </p>
+                <p class="text-muted">Personalized meal plans tailored to your goals — weight loss, muscle gain, or maintenance.</p>
                 <ul class="list-unstyled text-start small mt-3">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Custom calorie targets</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Grocery lists included</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Deitary preferences</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Custom calorie targets</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Grocery lists included</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Dietary preferences</li>
                 </ul>
             </div>
         </div>
-      </div>
-
-      <!-- Feature 3: Premium Membership -->
-       <div class="col-md-6 col-lg-4">
+    </div>
+    
+    <!-- Feature 3: Premium Membership -->
+    <div class="col-md-6 col-lg-4">
         <div class="card h-100 text-center p-3">
             <div class="card-body">
                 <i class="fas fa-crown fa-3x text-warning mb-3"></i>
                 <h4>Premium Membership</h4>
-                <p class="text-muted">
-                    Unlock exclusive content and advanced features with our premium subscription.
-                </p>
+                <p class="text-muted">Unlock exclusive content and advanced features with our premium subscription.</p>
                 <ul class="list-unstyled text-start small mt-3">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>All exercise & nutrition plans</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Priority support</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Monthly live Q&A sessions</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> All exercise & nutrition plans</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Priority support</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Monthly live Q&A sessions</li>
                 </ul>
             </div>
         </div>
-      </div>
-
-      <!-- Feature 4: Community -->
-       <div class="col-md-6 col-lg-4">
+    </div>
+    
+    <!-- Feature 4: Community -->
+    <div class="col-md-6 col-lg-4">
         <div class="card h-100 text-center p-3">
             <div class="card-body">
                 <i class="fas fa-users fa-3x text-primary mb-3"></i>
                 <h4>Community</h4>
-                <p class="text-muted">
-                    Connect with like-minded individuals on their fitness journey.
-                </p>
+                <p class="text-muted">Connect with like-minded individuals on their fitness journey.</p>
                 <ul class="list-unstyled text-start small mt-3">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Share progress updates</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Leave reviews on plans</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Get motivated together</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Share progress updates</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Leave reviews on plans</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Get motivated together</li>
                 </ul>
             </div>
         </div>
-      </div>
-
-      <!-- Feature 5: Progress Tracking -->
-       <div class="col-md-6 col-lg-4">
+    </div>
+    
+    <!-- Feature 5: Progress Tracking -->
+    <div class="col-md-6 col-lg-4">
         <div class="card h-100 text-center p-3">
             <div class="card-body">
                 <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
                 <h4>Progress Tracking</h4>
-                <p class="text-muted">
-                    Monitor your improvements with visual analytics and milestones.
-                </p>
+                <p class="text-muted">Monitor your improvements with visual analytics and milestones.</p>
                 <ul class="list-unstyled text-start small mt-3">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Workout completion logs</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Weight & measurement tracking</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Achievement badges</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Workout completion logs</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Weight & measurement tracking</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Achievement badges</li>
                 </ul>
             </div>
         </div>
-      </div>
-
-      <!-- Feature 6: Secure payments -->
-       <div class="col-md-6 col-lg-4">
+    </div>
+    
+    <!-- Feature 6: Secure Payments -->
+    <div class="col-md-6 col-lg-4">
         <div class="card h-100 text-center p-3">
             <div class="card-body">
-                <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+                <i class="fas fa-lock fa-3x text-primary mb-3"></i>
                 <h4>Secure Payments</h4>
-                <p class="text-muted">
-                    Safe and secure transactions powered by Stripe.
-                </p>
+                <p class="text-muted">Safe and secure transactions powered by Stripe.</p>
                 <ul class="list-unstyled text-start small mt-3">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Encrypted payments</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Multiple payment methods</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i>Subscription Management</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Encrypted payments</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Multiple payment methods</li>
+                    <li><i class="fas fa-check-circle text-primary me-2"></i> Subscription management</li>
                 </ul>
             </div>
         </div>
-      </div>
+    </div>
 </div>
 
 <!-- Call to Action -->
- <div class="text-center mt-5 pt-4">
+<div class="text-center mt-5 pt-4">
     <div class="card bg-primary text-white">
         <div class="card-body py-5">
-            <h2 class="text-white mb-3">
-                Ready to transform your Life?
-            </h2>
-            <p class="text-white-50 mb-4">
-                Join Fitbody-App today and start your fitness journey
-            </p>
+            <h2 class="text-white mb-3">Ready to Transform Your Life?</h2>
+            <p class="text-white-50 mb-4">Join Fitbody-App today and start your fitness journey</p>
             <a href="{% url 'accounts:register' %}" class="btn btn-accent btn-lg">Get Started Free</a>
         </div>
     </div>
- </div>
- {% endblock  %}
+</div>
+{% endblock %}
