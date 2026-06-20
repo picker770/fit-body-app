@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'images/site.webmanifest' %}">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,88 +29,64 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <i class="fas fa-dumbbell me-2"></i>Fitbody-App
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-    <!-- Page Links  -->
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'home' %}">
-            <i class="fas fa-home me-1"></i>Home
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'pages:about' %}">
-            <i class="fas fa-info-circle me-1"></i>About
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'pages:features' %}">
-            <i class="fas fa-star me-1"></i>Features
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'pages:pricing' %}">
-            <i class="fas fa-tag me-1"></i>Pricing
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'pages:contact' %}">
-            <i class="fas fa-envelope me-1"></i>Contact
-        </a>
-    </li>
-    
-    <!-- Auth Links -->
-    {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'dashboard:home' %}">
-                <i class="fas fa-tachometer-alt me-1"></i>Dashboard
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                <i class="fas fa-user-circle me-1"></i>{{ user.username }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a class="dropdown-item" href="{% url 'accounts:profile' username=user.username %}">
-                        <i class="fas fa-id-card me-2"></i>My Profile
-                    </a>
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Fitbody-App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Page Links -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'accounts:profile_edit' %}">
-                        <i class="fas fa-edit me-2"></i>Edit Profile
-                    </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pages:about' %}">About</a>
                 </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'accounts:logout' %}">
-                        <i class="fas fa-sign-out-alt me-2"></i>Logout
-                    </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pages:features' %}">Features</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pages:pricing' %}">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pages:contact' %}">Contact</a>
+                </li>
+                
+                <!-- Auth Links -->
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard:home' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:profile' username=user.username %}">My Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:profile_edit' %}">Edit Profile</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white px-3 ms-2" href="{% url 'accounts:register' %}">Register</a>
+                    </li>
+                {% endif %}
             </ul>
-        </li>
-    {% else %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:login' %}">
-                <i class="fas fa-sign-in-alt me-1"></i>Login
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link btn btn-primary text-white px-3 ms-2" href="{% url 'accounts:register' %}">
-                <i class="fas fa-user-plus me-1"></i>Register
-            </a>
-        </li>
-    {% endif %}
-</ul>
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Main Content -->
     <main class="container my-5">
