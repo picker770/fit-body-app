@@ -6,4 +6,36 @@
     <p>Welcome{{ user.username }}!</p>
     <p>Your dashboard will show purchases, progress, and more.</p>
 </div>
+
+<!-- Your Purchases -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h3 class="mb-3">Your Purchased Plans</h3>
+        {% with user.orders.all as orders %}
+            {% if orders %}
+                <div class="row g-3">
+                    {% for order in orders %}
+                        {% if order.status == 'paid' %}
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ order.product.name }}</h5>
+                                        <span class="badge bg-success">Purchased</span>
+                                        <p class="card-text small text-muted mt-2">{{ order.product.description|truncatechars:60 }}</p>
+                                        <a href="{% url 'products:detail' slug=order.product.slug %}" class="btn btn-outline-primary btn-sm">View Plan</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>You haven't purchased any plans yet. 
+                    <a href="{% url 'products:list' %}">Browse Plans</a>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
 {% endblock %}

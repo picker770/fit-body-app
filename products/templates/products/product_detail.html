@@ -59,31 +59,30 @@
         
         <!-- Purchase/Action Button -->
         {% if user.is_authenticated %}
-            {% if is_purchased %}
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle me-2"></i>You already own this plan!
-                </div>
-                <a href="{% url 'dashboard:home' %}" class="btn btn-success w-100">
-                    <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
-                </a>
-            {% else %}
-                <!-- Temporarily disabled until payments app is built -->
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>Payment integration coming soon!
+    {% if is_purchased %}
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle me-2"></i>You already own this plan!
         </div>
-        <button class="btn btn-primary w-100" disabled>
-            <i class="fas fa-lock me-2"></i>Purchase Now - ${{ product.price }}
-        </button>
+        <a href="{% url 'dashboard:home' %}" class="btn btn-success w-100">
+            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+        </a>
+    {% else %}
+        <form action="{% url 'payments:create_checkout_session' product.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg w-100">
+                <i class="fas fa-lock me-2"></i>Purchase Now - ${{ product.price }}
+            </button>
+        </form>
         <small class="text-muted d-block mt-2 text-center">Secure payment powered by Stripe</small>
-            {% endif %}
-        {% else %}
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i>Please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">register</a> to purchase this plan.
-            </div>
-            <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-primary w-100">
-                <i class="fas fa-sign-in-alt me-2"></i>Login to Purchase
-            </a>
-        {% endif %}
+    {% endif %}
+{% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>Please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">register</a> to purchase this plan.
+    </div>
+    <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-primary w-100">
+        <i class="fas fa-sign-in-alt me-2"></i>Login to Purchase
+    </a>
+{% endif %}
     </div>
 </div>
 

@@ -1,3 +1,12 @@
 from django.urls import path
+from . import views
 
-urlpatterns = []
+app_name = 'payments'
+
+urlpatterns = [
+    path('checkout/<int:product_id>/', views.create_checkout_session, name='create_checkout_session'),
+    path('success/', views.payment_success, name='success'),
+    path('cancel/', views.payment_cancel, name='cancel'),
+    path('webhook/', views.stripe_webhook, name='webhook'),
+]
+
