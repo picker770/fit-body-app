@@ -5,8 +5,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
 from products.models import Product
 from .models import Order, Subscription, MembershipPlan
+from .decorators import premium_required
+
+User = get_user_model()
+
 
 @login_required
 def create_checkout_session(request, product_id):
@@ -33,7 +39,7 @@ def create_checkout_session(request, product_id):
                             'name': product.name,
                             'description': product.description[:200],
                         },
-                        'unit_amount': int(product.price * 100),
+                        'unit_amount': int(product.price * 100),  # Convert to pence (GBP)
                     },
                     'quantity': 1,
                 },
@@ -47,7 +53,7 @@ def create_checkout_session(request, product_id):
                 'user_id': request.user.id,
             },
         )
-
+        
         # Create order with pending status
         Order.objects.create(
             user=request.user,
@@ -62,7 +68,8 @@ def create_checkout_session(request, product_id):
     except Exception as e:
         messages.error(request, f'Payment error: {str(e)}')
         return redirect('products:detail', slug=product.slug)
-    
+
+
 @login_required
 def payment_success(request):
     """
@@ -89,6 +96,7 @@ def payment_success(request):
     
     return render(request, 'payments/success.html')
 
+
 @login_required
 def payment_cancel(request):
     """
@@ -101,7 +109,7 @@ def payment_cancel(request):
 @csrf_exempt
 def stripe_webhook(request):
     """
-    Stripe webhook handler
+    Stripe webhook handler - processes payment confirmations
     """
     stripe.api_key = settings.STRIPE_SECRET_KEY
     payload = request.body
@@ -121,18 +129,53 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
     
-    # Handle the event
+    # Handle specific events
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        # Update order status
+        
+        # Update order status for product purchase
         order = Order.objects.filter(
             stripe_payment_intent=session['id']
         ).first()
         if order:
             order.status = 'paid'
             order.save()
+        
+        # Update subscription for membership
+        subscription_id = session.get('subscription')
+        if subscription_id:
+            user_id = session.get('metadata', {}).get('user_id')
+            if user_id:
+                try:
+                    user = User.objects.get(id=user_id)
+                    subscription, created = Subscription.objects.update_or_create(
+                        user=user,
+                        defaults={
+                            'stripe_subscription_id': subscription_id,
+                            'stripe_customer_id': session.get('customer'),
+                            'status': 'active',
+                        }
+                    )
+                    # Update user profile
+                    user.profile.membership_status = 'premium'
+                    user.profile.save()
+                except User.DoesNotExist:
+                    pass
+    
+    elif event['type'] == 'customer.subscription.deleted':
+        # Handle subscription cancellation
+        subscription_obj = event['data']['object']
+        subscription = Subscription.objects.filter(
+            stripe_subscription_id=subscription_obj['id']
+        ).first()
+        if subscription:
+            subscription.status = 'canceled'
+            subscription.save()
+            subscription.user.profile.membership_status = 'free'
+            subscription.user.profile.save()
     
     return HttpResponse(status=200)
+
 
 @login_required
 def subscription_checkout(request, plan_slug):
@@ -255,3 +298,11 @@ def cancel_subscription(request):
         messages.error(request, f'Error cancelling subscription: {str(e)}')
     
     return redirect('dashboard:home')
+
+
+@premium_required
+def premium_content(request):
+    """
+    Example view for premium-only content
+    """
+    return render(request, 'payments/premium_content.html')
