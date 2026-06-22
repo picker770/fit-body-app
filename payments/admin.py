@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, Subscription
+from .models import Order, Subscription, MembershipPlan
 
 
 
@@ -17,3 +17,10 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created_at')
     search_fields = ('user__username',)
     readonly_fields = ('created_at', 'updated_at')
+
+@admin.register(MembershipPlan)
+class MembershipPlanAdmin(admin.ModelAdmin):
+    list_display = ('name', 'plan_type', 'price', 'is_active')
+    list_filter = ('plan_type', 'is_active')
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
