@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} - Subscription Cancelled{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <div class="mb-4">
+        <i class="fas fa-times-circle fa-5x text-danger"></i>
+    </div>
+    <h1 class="display-4 fw-bold">Subscription Cancelled</h1>
+    <p class="lead text-muted">You did not complete the subscription process.</p>
+    <p class="text-muted">Try again anytime to unlock premium features.</p>
+    <div class="mt-4">
+        <a href="{% url 'pages:pricing' %}" class="btn btn-primary">View Plans</a>
+    </div>
+</div>
+{% endblock %}
