@@ -28,7 +28,7 @@ def create_checkout_session(request, product_id):
             line_items=[
                 {
                     'price_data': {
-                        'currency': 'usd',
+                        'currency': 'gbp',
                         'product_data': {
                             'name': product.name,
                             'description': product.description[:200],
