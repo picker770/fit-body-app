@@ -28,7 +28,7 @@
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
                         <button class="btn btn-sm btn-outline-primary like-btn" data-post-id="{{ post.id }}">
-                            <i class="fas fa-heart" style="color: {% if request.user in post.likes.all %}red{% endif %};"></i>
+                            <i class="fas fa-heart"></i>
                             <span class="like-count">{{ post.total_likes }}</span>
                         </button>
                         <span class="ms-2 text-muted">{{ post.get_comments_count }} comments</span>
@@ -83,32 +83,39 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
 {% block extra_js %}
 <script>
-    // Like button AJAX
-    document.querySelectorAll('.like-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const postId = this.dataset.postId;
-            const icon = this.querySelector('.fa-heart');
-            const countSpan = this.querySelector('.like-count');
-            
-            fetch(`/community/post/${postId}/like/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}',
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.liked) {
-                    icon.style.color = 'red';
-                } else {
-                    icon.style.color = '';
-                }
-                countSpan.textContent = data.total_likes;
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.like-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const postId = this.dataset.postId;
+                const icon = this.querySelector('.fa-heart');
+                const countSpan = this.querySelector('.like-count');
+                
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+                
+                fetch(`/community/post/${postId}/like/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        icon.style.color = 'red';
+                    } else {
+                        icon.style.color = '';
+                    }
+                    countSpan.textContent = data.total_likes;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             });
         });
     });
