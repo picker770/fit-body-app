@@ -38,4 +38,46 @@
         {% endwith %}
     </div>
 </div>
+
+<!-- Recent Progress Posts -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Your Recent Posts</h3>
+            <a href="{% url 'community:feed' %}" class="btn btn-outline-primary btn-sm">View All</a>
+        </div>
+        
+        {% with user.progress_posts.all as posts %}
+            {% if posts %}
+                <div class="row g-3">
+                    {% for post in posts|slice:":3" %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 150px; object-fit: cover;">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ post.title }}</h6>
+                                    <p class="card-text small text-muted">{{ post.caption|truncatechars:50 }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-heart text-danger me-1"></i>{{ post.total_likes }}
+                                            <i class="fas fa-comment ms-2 me-1"></i>{{ post.get_comments_count }}
+                                        </small>
+                                        <a href="{% url 'community:post_detail' post.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>You haven't posted any progress yet. 
+                    <a href="{% url 'community:create_post' %}">Share your first post!</a>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
 {% endblock %}
