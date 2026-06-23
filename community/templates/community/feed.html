@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %} - Community{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h2">Community Feed</h1>
+            <a href="{% url 'community:create_post' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>New Post
+            </a>
+        </div>
+        
+        {% if posts %}
+            {% for post in posts %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                <strong>{{ post.user.username|first|upper }}</strong>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">{{ post.user.username }}</h5>
+                                <small class="text-muted">{{ post.created_at|date:"F j, Y" }}</small>
+                            </div>
+                        </div>
+                        
+                        <h3 class="h5">{{ post.title }}</h3>
+                        <p class="text-muted">{{ post.caption }}</p>
+                        
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="img-fluid rounded-3 mb-3" alt="Progress Image">
+                        {% endif %}
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                <button class="btn btn-sm btn-outline-primary like-btn" data-post-id="{{ post.id }}">
+                                    <i class="fas fa-heart"></i>
+                                    <span class="like-count">{{ post.total_likes }}</span>
+                                </button>
+                                <a href="{% url 'community:post_detail' post.id %}" class="btn btn-sm btn-outline-secondary ms-2">
+                                    <i class="fas fa-comment"></i> {{ post.get_comments_count }}
+                                </a>
+                            </div>
+                            <div>
+                                {% if post.user == request.user %}
+                                    <a href="{% url 'community:edit_post' post.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a href="{% url 'community:delete_post' post.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-image fa-4x text-muted mb-3"></i>
+                <h3>No Posts Yet</h3>
+                <p class="text-muted">Be the first to share your progress!</p>
+                <a href="{% url 'community:create_post' %}" class="btn btn-primary">Create Post</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
