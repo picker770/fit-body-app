@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %} - {{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Post Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                        <strong>{{ post.user.username|first|upper }}</strong>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">{{ post.user.username }}</h5>
+                        <small class="text-muted">{{ post.created_at|date:"F j, Y" }}</small>
+                    </div>
+                </div>
+                
+                <h3 class="h4">{{ post.title }}</h3>
+                <p class="text-muted">{{ post.caption }}</p>
+                
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="img-fluid rounded-3 mb-3" alt="Progress Image">
+                {% endif %}
+                
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary like-btn" data-post-id="{{ post.id }}">
+                            <i class="fas fa-heart"></i>
+                            <span class="like-count">{{ post.total_likes }}</span>
+                        </button>
+                        <span class="ms-2 text-muted">{{ post.get_comments_count }} comments</span>
+                    </div>
+                    <div>
+                        {% if post.user == request.user %}
+                            <a href="{% url 'community:edit_post' post.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a href="{% url 'community:delete_post' post.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comments Section -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Comments ({{ post.get_comments_count }})</h5>
+            </div>
+            <div class="card-body">
+                <!-- Comment Form -->
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'community:add_comment' post.id %}" class="mb-4">
+                        {% csrf_token %}
+                        <div class="d-flex gap-2">
+                            <input type="text" name="content" class="form-control" placeholder="Write a comment..." required>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
+                {% endif %}
+                
+                <!-- Comments List -->
+                {% if post.comments.all %}
+                    {% for comment in post.comments.all %}
+                        <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 35px; height: 35px;">
+                                <small><strong>{{ comment.user.username|first|upper }}</strong></small>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <strong>{{ comment.user.username }}</strong>
+                                    <small class="text-muted">{{ comment.created_at|date:"F j, Y" }}</small>
+                                </div>
+                                <p class="mb-0">{{ comment.content }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted mb-0">No comments yet. Be the first to comment!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    // Like button AJAX
+    document.querySelectorAll('.like-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const postId = this.dataset.postId;
+            const icon = this.querySelector('.fa-heart');
+            const countSpan = this.querySelector('.like-count');
+            
+            fetch(`/community/post/${postId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.liked) {
+                    icon.style.color = 'red';
+                } else {
+                    icon.style.color = '';
+                }
+                countSpan.textContent = data.total_likes;
+            });
+        });
+    });
+</script>
+{% endblock %}
