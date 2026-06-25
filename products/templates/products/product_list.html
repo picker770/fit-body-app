@@ -139,7 +139,7 @@
 {% endblock  %}
 
 <!-- JavaScript enhanced filtering to the product listing page , no page reload required-->
- {% block extra_js %}
+ {% comment %} {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Get filter elements
@@ -201,5 +201,5 @@
             });
         }
     });
-</script>
+</script> {% endcomment %}
 {% endblock %}
