@@ -1,39 +1,52 @@
 {% extends 'base.html' %}
 
+{% block title %} - {{ profile_user.username }}'s Profile{% endblock %}
+
 {% block content %}
 <div class="row">
+    <!-- Left Column: Profile Card -->
     <div class="col-md-4">
         <div class="card">
             <div class="card-body text-center">
+                <!-- Profile Picture -->
                 {% if profile_user.profile.profile_pic %}
-                    <img src="{{ profile_user.profile.profile_pic.url }}" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="{{ profile_user.profile.profile_pic.url }}" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #06B6D4;">
                 {% else %}
-                    <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px;">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px;">
                         <span class="display-1">{{ profile_user.username|first|upper }}</span>
                     </div>
                 {% endif %}
                 
+                <!-- Username -->
                 <h3>{{ profile_user.get_full_name|default:profile_user.username }}</h3>
                 <p class="text-muted">@{{ profile_user.username }}</p>
                 
+                <!-- Fitness Goal -->
                 {% if profile_user.profile.fitness_goal %}
                     <p><strong>Fitness Goal:</strong> {{ profile_user.profile.get_fitness_goal_display }}</p>
                 {% endif %}
                 
+                <!-- Member Since -->
                 <p><strong>Member since:</strong> {{ profile_user.date_joined|date:"F j, Y" }}</p>
+                
+                <!-- Membership Status with Badge -->
                 <p><strong>Membership:</strong> 
                     <span class="badge {% if profile_user.profile.membership_status == 'premium' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
                         {{ profile_user.profile.get_membership_display }}
                     </span>
                 </p>
                 
+                <!-- Edit Profile Button (only for profile owner) -->
                 {% if user == profile_user %}
-                    <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary mt-3">Edit Profile</a>
+                    <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary mt-3">
+                        <i class="fas fa-edit me-2"></i>Edit Profile
+                    </a>
                 {% endif %}
             </div>
         </div>
     </div>
     
+    <!-- Right Column: Bio -->
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
