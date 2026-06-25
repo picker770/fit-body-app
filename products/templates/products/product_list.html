@@ -146,6 +146,7 @@
         if (typeSelect) {
             typeSelect.addEventListener('change', function() {
                 if (filterForm) {
+                    filterForm.method = 'GET';
                     filterForm.action = "{% url 'products:list' %}";
                     filterForm.submit();
                 }
