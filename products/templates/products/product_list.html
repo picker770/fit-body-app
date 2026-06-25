@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
-
-{% block title %} - Products{% endblock  %}
+{% block title %} - Products{% endblock %}
 
 {% block content %}
 <div class="row">
-    <!-- Sidbar Filters-->
+    <!-- Sidebar Filters -->
     <div class="col-lg-3 mb-4">
         <div class="card">
             <div class="card-header">
@@ -13,46 +12,46 @@
             </div>
             <div class="card-body">
                 <form method="GET" action="{% url 'products:list' %}">
-    <!--Search -->
-    <div class="mb-3">
-        <label class="form-label fw-medium">Search</label>
-        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search_query }}">
-    </div>
+                    <!-- Search -->
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Search</label>
+                        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search_query }}">
+                    </div>
 
-    <!-- Product Type -->
-    <div class="mb-3">
-        <label class="form-label fw-medium">Type</label>
-        <select name="type" class="form-select">
-            <option value="">All Types</option>
-            {% for type_code, type_name in product_types %}
-                <option value="{{ type_code }}" {% if current_type == type_code %}selected{% endif %}>
-                    {{ type_name }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
+                    <!-- Product Type -->
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Type</label>
+                        <select name="type" class="form-select">
+                            <option value="">All Types</option>
+                            {% for type_code, type_name in product_types %}
+                                <option value="{{ type_code }}" {% if current_type == type_code %}selected{% endif %}>
+                                    {{ type_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-    <!-- Price Range -->
-    <div class="mb-3">
-        <label class="form-label fw-medium">Price Range</label>
-        <div class="row g-2">
-            <div class="col-6">
-                <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
-            </div>
-            <div class="col-6">
-                <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
-            </div>
-        </div>
-    </div>
-    
-    <button type="submit" class="btn btn-primary w-100">
-        <i class="fas fa-search me-2"></i>Apply Filters
-    </button>
-    
-    <a href="{% url 'products:list' %}" class="btn btn-outline-secondary w-100 mt-2">
-        <i class="fas fa-undo me-2"></i>Clear Filters
-    </a>
-</form>
+                    <!-- Price Range -->
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Price Range</label>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
+                            </div>
+                            <div class="col-6">
+                                <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-2"></i>Apply Filters
+                    </button>
+                    
+                    <a href="{% url 'products:list' %}" class="btn btn-outline-secondary w-100 mt-2">
+                        <i class="fas fa-undo me-2"></i>Clear Filters
+                    </a>
+                </form>
             </div>
         </div>
     </div>
@@ -136,70 +135,22 @@
         {% endif %}
     </div>
 </div>
-{% endblock  %}
+{% endblock %}
 
-<!-- JavaScript enhanced filtering to the product listing page , no page reload required-->
- {% comment %} {% block extra_js %}
+{% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Get filter elements
-        const searchInput = document.querySelector('input[name="search"]');
-        const typeSelect = document.querySelector('select[name="type"]');
-        const minPriceInput = document.querySelector('input[name="min_price"]');
-        const maxPriceInput = document.querySelector('input[name="max_price"]');
         const filterForm = document.querySelector('form');
-        const applyFiltersBtn = document.querySelector('button[type="submit"]');
-        const clearFiltersBtn = document.querySelector('a[href*="products"]');
+        const typeSelect = document.querySelector('select[name="type"]');
         
-        // Add live search with debounce
-        if (searchInput) {
-            let debounceTimer;
-            searchInput.addEventListener('input', function() {
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(function() {
-                    filterForm.submit();
-                }, 500);
-            });
-        }
-        
-        // Auto-submit on type change
         if (typeSelect) {
             typeSelect.addEventListener('change', function() {
-                filterForm.submit();
-            });
-        }
-        
-        // Auto-submit on price range change (with debounce)
-        if (minPriceInput) {
-            let priceTimer;
-            minPriceInput.addEventListener('input', function() {
-                clearTimeout(priceTimer);
-                priceTimer = setTimeout(function() {
+                if (filterForm) {
+                    filterForm.action = "{% url 'products:list' %}";
                     filterForm.submit();
-                }, 600);
-            });
-        }
-        
-        if (maxPriceInput) {
-            let priceTimer;
-            maxPriceInput.addEventListener('input', function() {
-                clearTimeout(priceTimer);
-                priceTimer = setTimeout(function() {
-                    filterForm.submit();
-                }, 600);
-            });
-        }
-        
-        // Show loading state on form submit
-        if (filterForm) {
-            filterForm.addEventListener('submit', function() {
-                const btn = this.querySelector('button[type="submit"]');
-                if (btn) {
-                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
-                    btn.disabled = true;
                 }
             });
         }
     });
-</script> {% endcomment %}
+</script>
 {% endblock %}
