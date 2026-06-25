@@ -12,47 +12,47 @@
                 <h5 class="mb-0"><i class="fas fa-filter me-2"></i>Filters</h5>
             </div>
             <div class="card-body">
-                <form method="GET">
-                    <!--Search -->
-                     <div class="mb-3">
-                        <label class="form-label fw-medium">Search</label>
-                        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search_query }}">
-                    </div>
+                <form method="GET" action="{% url 'products:list' %}">
+    <!--Search -->
+    <div class="mb-3">
+        <label class="form-label fw-medium">Search</label>
+        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search_query }}">
+    </div>
 
-                    <!-- Product Type -->
-                    <div class="mb-3">
-                        <label for="" class="form-label fw-medium">Type</label>
-                        <select name="type" id="" class="form-select">
-                            <option value="">All Types</option>
-                            {% for type_code, type_name in product_types %}
-                                <option value="{{ type_code }}" {% if current_type == type_code %}selected{% endif %}>
-                                    {{ type_name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+    <!-- Product Type -->
+    <div class="mb-3">
+        <label class="form-label fw-medium">Type</label>
+        <select name="type" class="form-select">
+            <option value="">All Types</option>
+            {% for type_code, type_name in product_types %}
+                <option value="{{ type_code }}" {% if current_type == type_code %}selected{% endif %}>
+                    {{ type_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
 
-                    <!-- Price Range -->
-                    <div class="mb-3">
-                        <label class="form-label fw-medium">Price Range</label>
-                        <div class="row g-2">
-                            <div class="col-6">
-                                <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
-                            </div>
-                            <div class="col-6">
-                                <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="fas fa-search me-2"></i>Apply Filters
-                    </button>
-                    
-                    <a href="{% url 'products:list' %}" class="btn btn-outline-secondary w-100 mt-2">
-                        <i class="fas fa-undo me-2"></i>Clear Filters
-                    </a>
-                </form>
+    <!-- Price Range -->
+    <div class="mb-3">
+        <label class="form-label fw-medium">Price Range</label>
+        <div class="row g-2">
+            <div class="col-6">
+                <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
+            </div>
+            <div class="col-6">
+                <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
+            </div>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary w-100">
+        <i class="fas fa-search me-2"></i>Apply Filters
+    </button>
+    
+    <a href="{% url 'products:list' %}" class="btn btn-outline-secondary w-100 mt-2">
+        <i class="fas fa-undo me-2"></i>Clear Filters
+    </a>
+</form>
             </div>
         </div>
     </div>
