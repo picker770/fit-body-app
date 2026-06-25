@@ -5,16 +5,46 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body text-center">
-                <h3>{{ profile_user.username }}</h3>
-                <p>Member since: {{ profile_user.date_joined|date }}</p>
+                {% if profile_user.profile.profile_pic %}
+                    <img src="{{ profile_user.profile.profile_pic.url }}" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 150px; height: 150px;">
+                        <span class="display-1">{{ profile_user.username|first|upper }}</span>
+                    </div>
+                {% endif %}
+                
+                <h3>{{ profile_user.get_full_name|default:profile_user.username }}</h3>
+                <p class="text-muted">@{{ profile_user.username }}</p>
+                
+                {% if profile_user.profile.fitness_goal %}
+                    <p><strong>Fitness Goal:</strong> {{ profile_user.profile.get_fitness_goal_display }}</p>
+                {% endif %}
+                
+                <p><strong>Member since:</strong> {{ profile_user.date_joined|date:"F j, Y" }}</p>
+                <p><strong>Membership:</strong> 
+                    <span class="badge {% if profile_user.profile.membership_status == 'premium' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                        {{ profile_user.profile.get_membership_display }}
+                    </span>
+                </p>
+                
+                {% if user == profile_user %}
+                    <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary mt-3">Edit Profile</a>
+                {% endif %}
             </div>
         </div>
     </div>
+    
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4>{{ profile_user.username }}</h4>
-                <p>Member since: {{ profile_user.profile.bio|default:"No bio yet." }}</p>
+                <h4>About {{ profile_user.username }}</h4>
+            </div>
+            <div class="card-body">
+                {% if profile_user.profile.bio %}
+                    <p>{{ profile_user.profile.bio }}</p>
+                {% else %}
+                    <p class="text-muted">No bio yet.</p>
+                {% endif %}
             </div>
         </div>
     </div>
