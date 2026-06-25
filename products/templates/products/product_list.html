@@ -136,22 +136,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterForm = document.querySelector('form');
-        const typeSelect = document.querySelector('select[name="type"]');
-        
-        if (typeSelect) {
-            typeSelect.addEventListener('change', function() {
-                if (filterForm) {
-                    filterForm.method = 'GET';
-                    filterForm.action = "{% url 'products:list' %}";
-                    filterForm.submit();
-                }
-            });
-        }
-    });
-</script>
-{% endblock %}
