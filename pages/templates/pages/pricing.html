@@ -11,7 +11,7 @@
 <div class="row g-4 justify-content-center">
     
     <!-- Free Plan -->
-    <div class="col-md-6 col-lg-4">
+    <div class="col-md-6 col-lg-5">
         <div class="card h-100 text-center">
             <div class="card-body p-4">
                 <h3 class="card-title">Free</h3>
@@ -54,7 +54,7 @@
     </div>
     
     <!-- Premium Monthly Plan -->
-    <div class="col-md-6 col-lg-4">
+    <div class="col-md-6 col-lg-5">
         <div class="card h-100 text-center border-primary shadow-lg">
             <div class="card-body p-4">
                 <div class="badge bg-warning text-dark mb-3 px-3 py-2">Most Popular</div>
@@ -100,54 +100,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- Premium Yearly Plan -->
-    <div class="col-md-6 col-lg-4">
-        <div class="card h-100 text-center border-success shadow-lg">
-            <div class="card-body p-4">
-                <div class="badge bg-success text-white mb-3 px-3 py-2">Best Value</div>
-                <h3 class="card-title">Premium Yearly</h3>
-                <p class="text-muted">Save 20% with annual billing</p>
-                <h2 class="display-4 fw-bold text-success">£199.99</h2>
-                <p class="text-muted mb-4">per year • cancel anytime</p>
-                
-                <hr>
-                
-                <ul class="list-unstyled text-start mt-4">
-                    <li class="mb-3">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        <strong>All Monthly features</strong>
-                    </li>
-                    <li class="mb-3">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        <strong>20% discount</strong> vs monthly
-                    </li>
-                    <li class="mb-3">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Exclusive content access
-                    </li>
-                    <li class="mb-3">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Monthly live Q&A sessions
-                    </li>
-                    <li class="mb-3">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Priority support
-                    </li>
-                    <li class="mb-3">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Downloadable PDF guides
-                    </li>
-                </ul>
-                
-                {% if user.is_authenticated %}
-                    <a href="{% url 'payments:subscription_checkout' plan_slug='premium-yearly' %}" class="btn btn-success w-100 mt-3">Subscribe Yearly</a>
-                {% else %}
-                    <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-success w-100 mt-3">Login to Subscribe</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- FAQ Section -->
@@ -158,32 +110,24 @@
     
     <div class="col-md-6">
         <div class="mb-4">
-            <h5><i class="fas fa-question-circle text-primary me-2"></i> Can I switch plans anytime?</h5>
-            <p class="text-muted">Yes, you can upgrade or cancel your subscription at any time from your dashboard.</p>
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> Can I cancel anytime?</h5>
+            <p class="text-muted">Yes, you can cancel your subscription at any time from your dashboard.</p>
         </div>
         <div class="mb-4">
-            <h5><i class="fas fa-question-circle text-primary me-2"></i> Is there a free trial?</h5>
-            <p class="text-muted">Premium plans come with a 14-day money-back guarantee. Cancel within 14 days for a full refund.</p>
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> What payment methods are accepted?</h5>
+            <p class="text-muted">We accept all major credit cards via Stripe's secure payment system.</p>
         </div>
     </div>
     
     <div class="col-md-6">
         <div class="mb-4">
-            <h5><i class="fas fa-question-circle text-primary me-2"></i> What payment methods are accepted?</h5>
-            <p class="text-muted">We accept all major credit cards via Stripe's secure payment system.</p>
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> Is there a free trial?</h5>
+            <p class="text-muted">Premium plans come with a 14-day money-back guarantee.</p>
         </div>
         <div class="mb-4">
-            <h5><i class="fas fa-question-circle text-primary me-2"></i> Can I cancel anytime?</h5>
-            <p class="text-muted">Absolutely. No long-term contracts. Cancel directly from your account settings.</p>
+            <h5><i class="fas fa-question-circle text-primary me-2"></i> Can I switch plans?</h5>
+            <p class="text-muted">Currently, we offer one premium plan. Upgrade or cancel anytime.</p>
         </div>
     </div>
-</div>
-
-<!-- Annual Plan Note -->
-<div class="text-center mt-4">
-    <p class="text-muted">
-        <i class="fas fa-tag me-1"></i> 
-        <strong>Save 20%</strong> with annual billing — only £16.66/month billed yearly
-    </p>
 </div>
 {% endblock %}
