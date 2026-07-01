@@ -339,3 +339,53 @@ a:hover {
         font-size: 1.8rem;
     }
 }
+
+/* ========================================
+   Accessibility: Contrast Improvements
+   ======================================== */
+
+/* Darken text in cards */
+.card-body p,
+.card-body .text-muted {
+    color: #1E293B !important;
+}
+
+/* Darken outline buttons on hover for better contrast */
+.btn-outline-primary {
+    color: #0B7285;
+    border-color: #0B7285;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0B7285;
+    color: #FFFFFF;
+}
+
+/* Ensure button text has enough contrast */
+.btn-primary {
+    background-color: #0B7285;
+    border-color: #0B7285;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: #065666;
+    border-color: #065666;
+    color: #FFFFFF;
+}
+
+/* Darken muted text */
+.text-muted {
+    color: #475569 !important;
+}
+
+/* Improve card heading contrast */
+.card-title {
+    color: #0F172A !important;
+}
+
+/* Badge contrast */
+.badge-primary {
+    background-color: #0B7285;
+    color: #FFFFFF;
+}
