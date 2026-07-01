@@ -22,7 +22,7 @@
                                         <h5 class="card-title">{{ order.product.name }}</h5>
                                         <span class="badge bg-success">Purchased</span>
                                         <p class="card-text small text-muted mt-2">{{ order.product.description|truncatechars:60 }}</p>
-                                        <a href="{% url 'products:detail' slug=order.product.slug %}" class="btn btn-outline-primary btn-sm">View Plan</a>
+                                        <a href="{% url 'products:detail' slug=order.product.slug %}" class="btn btn-outline-primary btn-sm" aria-label="View {{ order.product.name }} details">View Plan</a>
                                     </div>
                                 </div>
                             </div>

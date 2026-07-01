@@ -81,7 +81,7 @@
                                 <p class="card-text text-muted small">{{ product.description|truncatechars:80 }}</p>
                                 <div class="mt-auto">
                                     <h4 class="text-primary mb-2">£{{ product.price }}</h4>
-                                    <a href="{% url 'products:detail' slug=product.slug %}" class="btn btn-primary w-100">
+                                    <a href="{% url 'products:detail' slug=product.slug %}" class="btn btn-primary w-100" aria-label="View details for {{ product.name }}">
                                         <i class="fas fa-eye me-2"></i>View Details
                                     </a>
                                 </div>
