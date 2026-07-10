@@ -27,7 +27,7 @@
 }
 
 body {
-    font-family: 'Ineter', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg-light);
     color: var(--text);
     line-height: 1.6;
