@@ -25,7 +25,7 @@ class Profile(models.Model):
     fitness_goal = models.CharField(max_length=20, choices=FITNESS_GOALS, default='general', blank=True)
     profile_pic = models.ImageField(upload_to='profiles/', blank=True, null=True)
     membership_status = models.CharField(max_length=20, default='free')
-    stripe_sustomer_id = models.CharField(max_length=100, blank=True)
+    stripe_customer_id = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
