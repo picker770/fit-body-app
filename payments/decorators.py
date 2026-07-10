@@ -12,7 +12,7 @@ def premium_required(view_func):
             messages.warning(request, 'Please login to access premium content.')
             return redirect('accounts:login')
         
-        if request.user.profile.membership_status != 'premium':
+        if request.user.Profile.membership_status != 'premium':
             messages.warning(request, 'This content is for premium members only.')
             return redirect('pages:pricing')
         

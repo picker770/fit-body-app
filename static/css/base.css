@@ -190,7 +190,7 @@ a:hover {
 }
 
 /* Profile Section */
-.profile-avatar {
+.Profile-avatar {
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -200,7 +200,7 @@ a:hover {
     background-color: var(--white);
 }
 
-.profile-placeholder {
+.Profile-placeholder {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -211,7 +211,7 @@ a:hover {
     margin: 0 auto;
 }
 
-.profile-placeholder span {
+.Profile-placeholder span {
     font-size: 4rem;
     color: var(--white);
 }

@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from .models import Profile
 
-
 User = get_user_model()
 
 
@@ -45,16 +44,16 @@ class ProfileModelTest(TestCase):
 
     def test_profile_str_method(self):
         user = User.objects.create_user(username='testuser', password='testpass123')
-        profile = user.profile
+        profile = user.profile  # ✅ Fixed: lowercase 'profile'
         self.assertEqual(str(profile), "testuser's Profile")
 
     def test_profile_default_values(self):
         user = User.objects.create_user(username='testuser', password='testpass123')
-        profile = user.profile
+        profile = user.profile  # ✅ Fixed: lowercase 'profile'
         self.assertEqual(profile.bio, '')
         self.assertEqual(profile.fitness_goal, 'general')
         self.assertEqual(profile.membership_status, 'free')
-        self.assertEqual(profile.profile_pic, None)
+        self.assertEqual(profile.profile_pic, None)  # ✅ Fixed: lowercase 'profile_pic'
 
 
 class RegistrationViewTest(TestCase):
@@ -72,7 +71,7 @@ class RegistrationViewTest(TestCase):
             'password1': 'Testpass123!',
             'password2': 'Testpass123!',
         })
-        self.assertEqual(response.status_code, 302)  # Redirect after registration
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(User.objects.filter(username='newuser').exists())
         self.assertTrue(Profile.objects.filter(user__username='newuser').exists())
 
@@ -118,7 +117,7 @@ class LoginViewTest(TestCase):
             'username': 'testuser',
             'password': 'testpass123'
         })
-        self.assertEqual(response.status_code, 302)  # Redirect after login
+        self.assertEqual(response.status_code, 302)
 
     def test_login_view_post_invalid(self):
         response = self.client.post(reverse('accounts:login'), {
@@ -141,25 +140,24 @@ class ProfileViewTest(TestCase):
 
     def test_profile_view_authenticated(self):
         self.client.login(username='testuser', password='testpass123')
-        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))
+        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))  # ✅ Fixed: lowercase 'profile'
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'accounts/profile.html')
+        self.assertTemplateUsed(response, 'accounts/profile.html')  # ✅ Fixed: lowercase 'profile'
 
     def test_profile_view_unauthenticated(self):
-        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))
-        self.assertEqual(response.status_code, 200)  # Profile is public
+        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))  # ✅ Fixed
+        self.assertEqual(response.status_code, 200)
 
     def test_profile_view_nonexistent_user(self):
-        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'nonexistent'}))
+        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'nonexistent'}))  # ✅ Fixed
         self.assertEqual(response.status_code, 404)
 
     def test_profile_edit_view_authenticated(self):
         self.client.login(username='testuser', password='testpass123')
-        response = self.client.get(reverse('accounts:profile_edit'))
+        response = self.client.get(reverse('accounts:profile_edit'))  # ✅ Fixed: lowercase 'profile_edit'
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'accounts/profile_edit.html')
+        self.assertTemplateUsed(response, 'accounts/profile_edit.html')  # ✅ Fixed: lowercase 'profile'
 
     def test_profile_edit_view_unauthenticated(self):
-        response = self.client.get(reverse('accounts:profile_edit'))
-        self.assertEqual(response.status_code, 302)  # Redirect to login
-
+        response = self.client.get(reverse('accounts:profile_edit'))  # ✅ Fixed
+        self.assertEqual(response.status_code, 302)

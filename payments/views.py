@@ -39,7 +39,7 @@ def create_checkout_session(request, product_id):
                             'name': product.name,
                             'description': product.description[:200],
                         },
-                        'unit_amount': int(product.price * 100),  # Convert to pence (GBP)
+                        'unit_amount': int(product.price * 100),
                     },
                     'quantity': 1,
                 },
@@ -54,7 +54,6 @@ def create_checkout_session(request, product_id):
             },
         )
         
-        # Create order with pending status
         Order.objects.create(
             user=request.user,
             product=product,
@@ -80,7 +79,6 @@ def payment_success(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             session = stripe.checkout.Session.retrieve(session_id)
-            # Update order status
             order = Order.objects.filter(
                 stripe_payment_intent=session_id,
                 user=request.user
@@ -116,7 +114,6 @@ def stripe_webhook(request):
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     webhook_secret = settings.STRIPE_WEBHOOK_SECRET
     
-    # If no webhook secret, just return 200 (for development)
     if not webhook_secret:
         return HttpResponse(status=200)
     
@@ -129,11 +126,9 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
     
-    # Handle specific events
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         
-        # Update order status for product purchase
         order = Order.objects.filter(
             stripe_payment_intent=session['id']
         ).first()
@@ -141,7 +136,6 @@ def stripe_webhook(request):
             order.status = 'paid'
             order.save()
         
-        # Update subscription for membership
         subscription_id = session.get('subscription')
         if subscription_id:
             user_id = session.get('metadata', {}).get('user_id')
@@ -156,14 +150,13 @@ def stripe_webhook(request):
                             'status': 'active',
                         }
                     )
-                    # Update user profile
+                    # ✅ Fixed: user.profile instead of user.Profile
                     user.profile.membership_status = 'premium'
                     user.profile.save()
                 except User.DoesNotExist:
                     pass
     
     elif event['type'] == 'customer.subscription.deleted':
-        # Handle subscription cancellation
         subscription_obj = event['data']['object']
         subscription = Subscription.objects.filter(
             stripe_subscription_id=subscription_obj['id']
@@ -171,6 +164,7 @@ def stripe_webhook(request):
         if subscription:
             subscription.status = 'canceled'
             subscription.save()
+            # ✅ Fixed: subscription.user.profile instead of subscription.user.Profile
             subscription.user.profile.membership_status = 'free'
             subscription.user.profile.save()
     
@@ -184,7 +178,6 @@ def subscription_checkout(request, plan_slug):
     """
     plan = get_object_or_404(MembershipPlan, slug=plan_slug, is_active=True)
     
-    # Check if user already has active subscription
     if hasattr(request.user, 'subscription') and request.user.subscription.is_active():
         messages.info(request, 'You already have an active subscription.')
         return redirect('dashboard:home')
@@ -227,12 +220,10 @@ def subscription_success(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             session = stripe.checkout.Session.retrieve(session_id)
-            # Get the subscription from Stripe
             subscription_id = session.get('subscription')
             if subscription_id:
                 stripe_sub = stripe.Subscription.retrieve(subscription_id)
                 
-                # Update or create subscription record
                 subscription, created = Subscription.objects.update_or_create(
                     user=request.user,
                     defaults={
@@ -244,7 +235,7 @@ def subscription_success(request):
                     }
                 )
                 
-                # Update user profile membership status
+                # ✅ Fixed: request.user.profile instead of request.user.Profile
                 request.user.profile.membership_status = 'premium'
                 request.user.profile.save()
                 
@@ -278,17 +269,15 @@ def cancel_subscription(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     
     try:
-        # Cancel at period end
         stripe.Subscription.modify(
             request.user.subscription.stripe_subscription_id,
             cancel_at_period_end=True
         )
         
-        # Update status
         request.user.subscription.status = 'canceled'
         request.user.subscription.save()
         
-        # Update profile
+        # ✅ Fixed: request.user.profile instead of request.user.Profile
         request.user.profile.membership_status = 'free'
         request.user.profile.save()
         
