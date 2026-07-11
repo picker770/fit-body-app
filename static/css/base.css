@@ -389,3 +389,33 @@ a:hover {
     background-color: #0B7285;
     color: #FFFFFF;
 }
+
+/* ========================================
+   Footer Link Hover Effects
+   ======================================== */
+
+/* Footer text links hover */
+.footer a {
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #22D3EE !important;  /* Light teal on hover */
+    text-decoration: underline;
+}
+
+/* Footer social media icons hover */
+.footer .text-white-50 {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer .text-white-50:hover {
+    color: #22D3EE !important;
+    transform: translateY(-2px);
+}
+
+/* Newsletter button hover */
+.footer .btn-primary:hover {
+    background-color: #22D3EE;
+    border-color: #22D3EE;
+}
