@@ -141,10 +141,18 @@
             <div class="col-md-3 mb-3 mb-md-0">
                 <h6 class="text-white mb-3">Platform</h6>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#" class="text-white-50 small">Exercise Plans</a></li>
-                    <li class="mb-2"><a href="#" class="text-white-50 small">Nutrition Plans</a></li>
-                    <li class="mb-2"><a href="#" class="text-white-50 small">Premium Membership</a></li>
-                    <li class="mb-2"><a href="#" class="text-white-50 small">Community</a></li>
+                    <li class="mb-2">
+                    <a href="{% url 'products:list' %}" class="text-white-50 small">Exercise Plans</a>
+                    </li>
+                     <li class="mb-2">
+                    <a href="{% url 'products:list' %}" class="text-white-50 small">Nutrition Plans</a>
+                    </li>
+                    <li class="mb-2">
+                     <a href="{% url 'pages:pricing' %}" class="text-white-50 small">Premium Membership</a>
+                    </li>
+                    <li class="mb-2">
+                    <a href="{% url 'community:feed' %}" class="text-white-50 small">Community</a>
+                    </li>
                 </ul>
             </div>
             
