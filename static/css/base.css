@@ -401,7 +401,7 @@ a:hover {
 
 .footer a:hover {
     color: #22D3EE !important;  /* Light teal on hover */
-    text-decoration: underline;
+    
 }
 
 /* Footer social media icons hover */
@@ -409,13 +409,9 @@ a:hover {
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.footer .text-white-50:hover {
-    color: #22D3EE !important;
-    transform: translateY(-2px);
-}
 
 /* Newsletter button hover */
 .footer .btn-primary:hover {
-    background-color: #22D3EE;
+    background-color: #090f10;
     border-color: #22D3EE;
 }
