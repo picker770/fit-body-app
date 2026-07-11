@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "community",
     "dashboard",
     "pages",
+    "newsletter",
 ]
 
 MIDDLEWARE = [

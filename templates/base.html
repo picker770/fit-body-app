@@ -151,9 +151,10 @@
             <div class="col-md-3">
                 <h6 class="text-white mb-3">Newsletter</h6>
                 <p class="text-white-50 small">Get fitness tips straight to your inbox.</p>
-                <form class="d-flex">
-                    <input type="email" class="form-control form-control-sm me-2" placeholder="Your email">
-                    <button class="btn btn-primary btn-sm" type="button">Subscribe</button>
+                <form class="d-flex" method="POST" action="{% url 'newsletter:subscribe' %}">
+                        {% csrf_token %}
+                        <input type="email" name="email" class="form-control form-control-sm me-2" placeholder="Your email" required>
+                        <button class="btn btn-primary btn-sm" type="submit">Subscribe</button>
                 </form>
             </div>
         </div>
