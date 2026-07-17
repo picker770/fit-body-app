@@ -101,9 +101,6 @@ I have used the recommended [HTML W3C validator](https://validator.w3.org) to va
 | Features | `https://fitbody-app-9cff49d317d1.herokuapp.com/features/` | ✅ Pass |
 | Pricing | `https://fitbody-app-9cff49d317d1.herokuapp.com/pricing/` | ✅ Pass |
 | Contact | `https://fitbody-app-9cff49d317d1.herokuapp.com/contact/` | ✅ Pass |
-| Login | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/login/` | ✅ Pass |
-| Register | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/register/` | ✅ Pass |
-| Dashboard | `https://fitbody-app-9cff49d317d1.herokuapp.com/dashboard/` | ✅ Pass |
 | Community | `https://fitbody-app-9cff49d317d1.herokuapp.com/community/` | ✅ Pass |
 | Profile | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/profile/username/` | ✅ Pass |
 
@@ -111,13 +108,11 @@ I have used the recommended [HTML W3C validator](https://validator.w3.org) to va
 ### HTML Code Validation Screenshots
 
 | Homepage | ![](/static/docs/html-validation-screenshots/home.png) |
+|----------|--------------------------------------------------------|
 | Products | ![](/static/docs/html-validation-screenshots/products.png) |
 | About | ![](/static/docs/html-validation-screenshots/about.png) |
 | Features | ![](/static/docs/html-validation-screenshots/features.png) |
 | Pricing | ![](/static/docs/html-validation-screenshots/pricing.png) |
 | Contact | ![](/static/docs/html-validation-screenshots/contact.png) |
-| Login | ![](/static/docs/html-validation-screenshots/login.png) |
-| Register | ![](/static/docs/html-validation-screenshots/register.png) |
-| Dashboard | ![](/static/docs/html-validation-screenshots/dashboard.png) |
 | Community | ![](/static/docs/html-validation-screenshots/community.png) |
 | Profile | ![](/static/docs/html-validation-screenshots/profile.png) |
