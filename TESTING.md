@@ -87,3 +87,23 @@ Manual testing involves a human interacting with the application to verify funct
 - Community interaction testing
 
 ---
+
+## Code Validation
+### HTML Validation
+
+I have used the recommended [HTML W3C validator](https://validator.w3.org) to validate all of my HTML files.
+
+| Page | URL | Status |
+|------|-----|--------|
+| Homepage | `https://fitbody-app-9cff49d317d1.herokuapp.com/` | ✅ Pass |
+| Products | `https://fitbody-app-9cff49d317d1.herokuapp.com/products/` | ✅ Pass |
+| About | `https://fitbody-app-9cff49d317d1.herokuapp.com/about/` | ✅ Pass |
+| Features | `https://fitbody-app-9cff49d317d1.herokuapp.com/features/` | ✅ Pass |
+| Pricing | `https://fitbody-app-9cff49d317d1.herokuapp.com/pricing/` | ✅ Pass |
+| Contact | `https://fitbody-app-9cff49d317d1.herokuapp.com/contact/` | ✅ Pass |
+| Login | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/login/` | ✅ Pass |
+| Register | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/register/` | ✅ Pass |
+| Dashboard | `https://fitbody-app-9cff49d317d1.herokuapp.com/dashboard/` | ✅ Pass |
+| Community | `https://fitbody-app-9cff49d317d1.herokuapp.com/community/` | ✅ Pass |
+| Profile | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/profile/username/` | ✅ Pass |
+
