@@ -8,20 +8,20 @@
     <div class="col-lg-3 mb-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-filter me-2"></i>Filters</h5>
+                <h2 class="h5 mb-0"><i class="fas fa-filter me-2"></i>Filters</h2>
             </div>
             <div class="card-body">
                 <form method="GET" action="{% url 'products:list' %}">
                     <!-- Search -->
                     <div class="mb-3">
-                        <label class="form-label fw-medium">Search</label>
-                        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search_query }}">
+                        <label for="search-input" class="form-label fw-medium">Search</label>
+                        <input type="text" name="search" id="search-input" class="form-control" placeholder="Search products..." value="{{ search_query }}">
                     </div>
 
                     <!-- Product Type -->
                     <div class="mb-3">
-                        <label class="form-label fw-medium">Type</label>
-                        <select name="type" class="form-select" onchange="this.form.submit()">
+                        <label for="type-select" class="form-label fw-medium">Type</label>
+                        <select name="type" id="type-select" class="form-select" onchange="this.form.submit()">
                             <option value="">All Types</option>
                             {% for type_code, type_name in product_types %}
                                 <option value="{{ type_code }}" {% if current_type == type_code %}selected{% endif %}>
@@ -80,8 +80,8 @@
                                 <h2 class="card-title h5">{{ product.name }}</h2>
                                 <p class="card-text text-muted small">{{ product.description|truncatechars:80 }}</p>
                                 <div class="mt-auto">
-                                    <h4 class="text-primary mb-2">£{{ product.price }}</h4>
-                                    <a href="{% url 'products:detail' slug=product.slug %}" class="btn btn-primary w-100" aria-label="View details for {{ product.name }}">
+                                    <h3 class="text-primary mb-2 h4">£{{ product.price }}</h3>
+                                    <a href="{% url 'products:detail' slug=product.slug %}" class="btn btn-primary w-100">
                                         <i class="fas fa-eye me-2"></i>View Details
                                     </a>
                                 </div>
@@ -90,37 +90,38 @@
                     </div>
                 {% endfor %}
             </div>
+            
             <!-- Pagination -->
             {% if page_obj.paginator.num_pages > 1 %}
-                <nav class="mt-4">
+                <nav class="mt-4" aria-label="Product pagination">
                     <ul class="pagination justify-content-center">
                         {% if page_obj.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page=1">&laquo; First</a>
+                                <a class="page-link" href="?page=1" aria-label="First page">&laquo; First</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous page">Previous</a>
                             </li>
                         {% endif %}
                         
                         {% for num in page_obj.paginator.page_range %}
                             {% if page_obj.number == num %}
-                                <li class="page-item active">
+                                <li class="page-item active" aria-current="page">
                                     <span class="page-link">{{ num }}</span>
                                 </li>
                             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    <a class="page-link" href="?page={{ num }}" aria-label="Page {{ num }}">{{ num }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}
                         
                         {% if page_obj.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next page">Next</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last page">Last &raquo;</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -129,10 +130,29 @@
         {% else %}
             <div class="text-center py-5">
                 <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
-                <h3>No Products Found</h3>
+                <h2 class="h3">No Products Found</h2>
                 <p class="text-muted">Check back soon for new exercise and nutrition plans.</p>
             </div>
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterForm = document.querySelector('form');
+        const typeSelect = document.querySelector('select[name="type"]');
+        
+        if (typeSelect) {
+            typeSelect.addEventListener('change', function() {
+                if (filterForm) {
+                    filterForm.method = 'GET';
+                    filterForm.action = "{% url 'products:list' %}";
+                    filterForm.submit();
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
