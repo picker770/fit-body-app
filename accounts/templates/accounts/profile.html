@@ -18,7 +18,7 @@
                 {% endif %}
                 
                 <!-- Username -->
-                <h3>{{ profile_user.get_full_name|default:profile_user.username }}</h3>
+                <h1 class="h3">{{ profile_user.get_full_name|default:profile_user.username }}</h1>
                 <p class="text-muted">@{{ profile_user.username }}</p>
                 
                 <!-- Fitness Goal -->
@@ -50,7 +50,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4>About {{ profile_user.username }}</h4>
+                <h2 class="h4 mb-0">About {{ profile_user.username }}</h2>
             </div>
             <div class="card-body">
                 {% if profile_user.profile.bio %}
