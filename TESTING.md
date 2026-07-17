@@ -116,3 +116,14 @@ I have used the recommended [HTML W3C validator](https://validator.w3.org) to va
 | Contact | ![](/static/docs/html-validation-screenshots/contact.png) |
 | Community | ![](/static/docs/html-validation-screenshots/community.png) |
 | Profile | ![](/static/docs/html-validation-screenshots/profile.png) |
+
+### CSS Validation
+
+I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator) to validate my CSS files.
+
+| File | Link | Status |
+|------|------|--------|
+| `static/css/base.css` | [Validate CSS](https://jigsaw.w3.org/css-validator/validator?uri=https://fitbody-app-9cff49d317d1.herokuapp.com/static/css/base.css) | ✅ Pass |
+
+
+### Python Validation (CI Python Linter)
