@@ -107,3 +107,17 @@ I have used the recommended [HTML W3C validator](https://validator.w3.org) to va
 | Community | `https://fitbody-app-9cff49d317d1.herokuapp.com/community/` | ✅ Pass |
 | Profile | `https://fitbody-app-9cff49d317d1.herokuapp.com/accounts/profile/username/` | ✅ Pass |
 
+
+### HTML Code Validation Screenshots
+
+| Homepage | ![](/static/docs/html-validation-screenshots/home.png) |
+| Products | ![](/static/docs/html-validation-screenshots/products.png) |
+| About | ![](/static/docs/html-validation-screenshots/about.png) |
+| Features | ![](/static/docs/html-validation-screenshots/features.png) |
+| Pricing | ![](/static/docs/html-validation-screenshots/pricing.png) |
+| Contact | ![](/static/docs/html-validation-screenshots/contact.png) |
+| Login | ![](/static/docs/html-validation-screenshots/login.png) |
+| Register | ![](/static/docs/html-validation-screenshots/register.png) |
+| Dashboard | ![](/static/docs/html-validation-screenshots/dashboard.png) |
+| Community | ![](/static/docs/html-validation-screenshots/community.png) |
+| Profile | ![](/static/docs/html-validation-screenshots/profile.png) |
