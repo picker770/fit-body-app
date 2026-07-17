@@ -112,9 +112,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-3 mb-md-0">
-                <h5 class="text-white mb-3">
+                <h3 class="text-white mb-3 h5">
                     <i class="fas fa-dumbbell me-2"></i>Fitbody-App
-                </h5>
+                </h3>
                 <p class="text-white-50 small">
                     Your fitness journey starts here. Transform your body and mind with expert-crafted exercise and nutrition plans.
                 </p>
@@ -128,7 +128,7 @@
             </div>
             
             <div class="col-md-2 mb-3 mb-md-0">
-                <h6 class="text-white mb-3">Quick Links</h6>
+                <h4 class="text-white mb-3 h6">Quick Links</h4>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="{% url 'home' %}" class="text-white-50 small">Home</a></li>
                     <li class="mb-2"><a href="{% url 'pages:about' %}" class="text-white-50 small">About Us</a></li>
@@ -139,7 +139,7 @@
             </div>
             
             <div class="col-md-3 mb-3 mb-md-0">
-                <h6 class="text-white mb-3">Platform</h6>
+                <h4 class="text-white mb-3 h6">Platform</h4>
                 <ul class="list-unstyled">
                     <li class="mb-2">
                     <a href="{% url 'products:list' %}" class="text-white-50 small">Exercise Plans</a>
@@ -157,7 +157,7 @@
             </div>
             
             <div class="col-md-3">
-                <h6 class="text-white mb-3">Newsletter</h6>
+                <h4 class="text-white mb-3 h6">Newsletter</h4>
                 <p class="text-white-50 small">Get fitness tips straight to your inbox.</p>
                 <form class="d-flex" method="POST" action="{% url 'newsletter:subscribe' %}">
                         {% csrf_token %}
