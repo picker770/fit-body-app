@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
+{% block title %} - Dashboard{% endblock %}
+
 {% block content %}
 <div class="text-center">
-    <h1>Dashboard</h1>
-    <p>Welcome{{ user.username }}!</p>
-    <p>Your dashboard will show purchases, progress, and more.</p>
+    <h1 class="h2">Welcome to Your Dashboard, {{ user.username }}!</h1>
+    <p class="lead">Your fitness journey starts here.</p>
 </div>
 
 <!-- Your Purchases -->
 <div class="row mt-5">
     <div class="col-12">
-        <h3 class="mb-3">Your Purchased Plans</h3>
+        <h2 class="h3 mb-3">Your Purchased Plans</h2>
         {% with user.orders.all as orders %}
             {% if orders %}
                 <div class="row g-3">
@@ -19,10 +20,10 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ order.product.name }}</h5>
+                                        <h3 class="h5 card-title">{{ order.product.name }}</h3>
                                         <span class="badge bg-success">Purchased</span>
                                         <p class="card-text small text-muted mt-2">{{ order.product.description|truncatechars:60 }}</p>
-                                        <a href="{% url 'products:detail' slug=order.product.slug %}" class="btn btn-outline-primary btn-sm" aria-label="View {{ order.product.name }} details">View Plan</a>
+                                        <a href="{% url 'products:detail' slug=order.product.slug %}" class="btn btn-outline-primary btn-sm">View Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +44,7 @@
 <div class="row mt-5">
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Your Recent Posts</h3>
+            <h2 class="h3 mb-0">Your Recent Posts</h2>
             <a href="{% url 'community:feed' %}" class="btn btn-outline-primary btn-sm">View All</a>
         </div>
         
@@ -57,7 +58,7 @@
                                     <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 150px; object-fit: cover;">
                                 {% endif %}
                                 <div class="card-body">
-                                    <h6 class="card-title">{{ post.title }}</h6>
+                                    <h3 class="h6 card-title">{{ post.title }}</h3>
                                     <p class="card-text small text-muted">{{ post.caption|truncatechars:50 }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <small class="text-muted">
