@@ -255,6 +255,7 @@ Tested using Chrome DevTools on the following breakpoints:
 | View Dashboard | Click "Dashboard" | Shows purchases and posts | As expected | ✅ |
 | Newsletter Subscribe | Enter email in footer | Success message appears | As expected | ✅ |
 | Admin Access | Visit /admin with superuser | Admin dashboard displays | As expected | ✅ |
+|Browse Products | Click "Products" in the navigation bar | All products displayed | As expected | ✅ |
 
 ---
 
