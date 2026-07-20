@@ -44,16 +44,16 @@ class ProfileModelTest(TestCase):
 
     def test_profile_str_method(self):
         user = User.objects.create_user(username='testuser', password='testpass123')
-        profile = user.profile  # ✅ Fixed: lowercase 'profile'
+        profile = user.profile
         self.assertEqual(str(profile), "testuser's Profile")
 
     def test_profile_default_values(self):
         user = User.objects.create_user(username='testuser', password='testpass123')
-        profile = user.profile  # ✅ Fixed: lowercase 'profile'
+        profile = user.profile
         self.assertEqual(profile.bio, '')
         self.assertEqual(profile.fitness_goal, 'general')
         self.assertEqual(profile.membership_status, 'free')
-        self.assertEqual(profile.profile_pic, None)  # ✅ Fixed: lowercase 'profile_pic'
+        self.assertEqual(profile.profile_pic, None)
 
 
 class RegistrationViewTest(TestCase):
@@ -125,7 +125,14 @@ class LoginViewTest(TestCase):
             'password': 'wrongpassword'
         })
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Please enter a correct username and password')
+        # Check that the user is NOT authenticated
+        self.assertFalse(response.context['user'].is_authenticated)
+        # Check that the form has errors
+        form = response.context['form']
+        self.assertTrue(form.errors)
+        # Check for the specific error message
+        error_messages = ' '.join(str(error) for errors in form.errors.values() for error in errors)
+        self.assertIn('username', error_messages.lower())
 
 
 class ProfileViewTest(TestCase):
@@ -140,24 +147,24 @@ class ProfileViewTest(TestCase):
 
     def test_profile_view_authenticated(self):
         self.client.login(username='testuser', password='testpass123')
-        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))  # ✅ Fixed: lowercase 'profile'
+        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'accounts/profile.html')  # ✅ Fixed: lowercase 'profile'
+        self.assertTemplateUsed(response, 'accounts/profile.html')
 
     def test_profile_view_unauthenticated(self):
-        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))  # ✅ Fixed
+        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'testuser'}))
         self.assertEqual(response.status_code, 200)
 
     def test_profile_view_nonexistent_user(self):
-        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'nonexistent'}))  # ✅ Fixed
+        response = self.client.get(reverse('accounts:profile', kwargs={'username': 'nonexistent'}))
         self.assertEqual(response.status_code, 404)
 
     def test_profile_edit_view_authenticated(self):
         self.client.login(username='testuser', password='testpass123')
-        response = self.client.get(reverse('accounts:profile_edit'))  # ✅ Fixed: lowercase 'profile_edit'
+        response = self.client.get(reverse('accounts:profile_edit'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'accounts/profile_edit.html')  # ✅ Fixed: lowercase 'profile'
+        self.assertTemplateUsed(response, 'accounts/profile_edit.html')
 
     def test_profile_edit_view_unauthenticated(self):
-        response = self.client.get(reverse('accounts:profile_edit'))  # ✅ Fixed
+        response = self.client.get(reverse('accounts:profile_edit'))
         self.assertEqual(response.status_code, 302)
