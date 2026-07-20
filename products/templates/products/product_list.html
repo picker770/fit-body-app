@@ -141,16 +141,48 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const filterForm = document.querySelector('form');
-        const typeSelect = document.querySelector('select[name="type"]');
+        // Auto-submit on search with debounce
+        const searchInput = document.querySelector('input[name="search"]');
+        if (searchInput) {
+            let debounceTimer;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(function() {
+                    const form = this.closest('form');
+                    if (form) {
+                        form.submit();
+                    }
+                }, 500);
+            });
+        }
+
+        // Auto-submit on price range change with debounce
+        const minPriceInput = document.querySelector('input[name="min_price"]');
+        const maxPriceInput = document.querySelector('input[name="max_price"]');
         
-        if (typeSelect) {
-            typeSelect.addEventListener('change', function() {
-                if (filterForm) {
-                    filterForm.method = 'GET';
-                    filterForm.action = "{% url 'products:list' %}";
-                    filterForm.submit();
-                }
+        if (minPriceInput) {
+            let priceTimer;
+            minPriceInput.addEventListener('input', function() {
+                clearTimeout(priceTimer);
+                priceTimer = setTimeout(function() {
+                    const form = this.closest('form');
+                    if (form) {
+                        form.submit();
+                    }
+                }, 600);
+            });
+        }
+        
+        if (maxPriceInput) {
+            let priceTimer;
+            maxPriceInput.addEventListener('input', function() {
+                clearTimeout(priceTimer);
+                priceTimer = setTimeout(function() {
+                    const form = this.closest('form');
+                    if (form) {
+                        form.submit();
+                    }
+                }, 600);
             });
         }
     });
